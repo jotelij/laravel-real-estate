@@ -5,8 +5,6 @@ import RecentListings from '@/components/home/RecentListings.vue';
 import InfoSection from '@/components/home/InfoSection.vue';
 import TestimonialsSection from '@/components/home/TestimonialsSection.vue';
 import CTASection from '@/components/home/CTASection.vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import { Head } from '@inertiajs/vue3';
 import type { Property, Review } from '@/types/models';
 
 interface Props {
