@@ -28,7 +28,7 @@ class RegisterController extends Controller
         // Create the user and log them in
         $user = User::create([
             'name' => $request->name,
-            // 'role' => $request->role,
+            'role' => $request->role,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -36,11 +36,20 @@ class RegisterController extends Controller
         // TODO: Handle role assignment based on the selected role in the registration form
         
         // Send verification email if email verification is implemented
-        event(new Registered($user));
+        // TODO: add the registered event back after email verification is implemented
+        // event(new Registered($user));
 
         //login the user
         Auth::login($user);
 
+        // TODO: remove this block after email verification is implemented
+        if(Auth::user()->is_agent()) {
+            return redirect()->route('agent.dashboard');
+        } else {
+            return redirect()->route('customer.dashboard');
+        }
+
+        
         return redirect()->route('dashboard');
     }
 }

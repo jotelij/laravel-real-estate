@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PropertyStatus;
 use App\Enums\UserRole;
 use App\Models\Amenity;
 use App\Models\Property;
@@ -68,7 +69,7 @@ class DatabaseSeeder extends Seeder
                 'average_rating' => 0,
             ])->each(function ($profile){
                 $profile->properties()->createMany(
-                    PropertyFactory::new()->count(3)->make()->toArray()
+                    PropertyFactory::new()->count(10)->make()->toArray()
                 );
             });
         });
@@ -83,7 +84,10 @@ class DatabaseSeeder extends Seeder
             'average_rating' => 0,
         ])->each(function ($profile){
             $profile->properties()->createMany(
-                PropertyFactory::new()->count(5)->make()->toArray()
+                PropertyFactory::new(['status' => PropertyStatus::ACTIVE])->count(10)->make()->toArray()
+            );
+            $profile->properties()->createMany(
+                PropertyFactory::new()->count(15)->make()->toArray()
             );
         });
        
