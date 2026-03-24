@@ -33,7 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.destroy');
 }); 
 
-Route::middleware(['auth', 'verified', 'role:'.UserRole::CUSTOMER->value])->group(function () {
+// TODO: add the verified middleware back after email verification is implemented
+// Route::middleware(['auth', 'verified', 'role:'.UserRole::CUSTOMER->value])->group(function () {
+Route::middleware(['auth', 'role:'.UserRole::CUSTOMER->value])->group(function () {
     Route::get('customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
     Route::get('customer/favourites', [CustomerFavouriteController::class, 'index'])->name('customer.favourites');
     Route::get('customer/enquiries', [CustomerEnquiryController::class, 'index'])->name('customer.enquiries.index');
@@ -44,7 +46,8 @@ Route::middleware(['auth', 'verified', 'role:'.UserRole::CUSTOMER->value])->grou
     Route::get('customer/viewings/{viewing}', [CustomerViewingController::class, 'show'])->name('customer.viewings.show');
 });
 
-Route::middleware(['auth', 'verified', 'role:'.UserRole::AGENT->value])->group(function () {
+// TODO: add the verified middleware back after email verification is implemented
+Route::middleware(['auth', 'role:'.UserRole::AGENT->value])->group(function () {
     Route::get('agent/dashboard', [AgentDashboardController::class, 'index'])->name('agent.dashboard');
     Route::get('agent/properties', [AgentPropertyController::class, 'index'])->name('agent.properties.index');
     Route::get('agent/properties/create', [AgentPropertyController::class, 'create'])->name('agent.properties.create');
