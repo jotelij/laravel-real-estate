@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, Ref, onMounted, watch } from 'vue';
-import { Calendar, Clock, MapPin, User, CheckCircle2, AlertCircle, XCircle, Clock4 } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
+import { Clock, MapPin, User } from 'lucide-vue-next';
 import { Badge } from '@/components/ui/badge';
-import { Viewing } from '@/types';
+import { Button } from '@/components/ui/button';
 import { formatDateShort, getStatusBadgeConfig } from '@/lib/utils';
+import type { Viewing } from '@/types';
 
 
 interface Props {

@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import type { BreadcrumbItem } from '@/types';
-import guest from '@/routes/guest';
-import { Property } from '@/types/models';
-import { Badge } from '@/components/ui/badge';
-import { PropertyOptions } from '@/types/enums';
-import { getPropertyListingValue, getPropertyStatusValue, getPropertyTypeValue } from '@/lib/enum_utils';
+import { Link } from '@inertiajs/vue3';
 import { FacebookIcon, GithubIcon, InstagramIcon, TwitterIcon } from 'lucide-vue-next';
-import { Separator } from '@/components/ui/separator';
+import EnumBadge from '@/components/EnumBadge.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {  Card, CardContent,  } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { getPropertyListingValue, getPropertyStatusValue, getPropertyTypeValue } from '@/lib/enum_utils';
 import { rating_stars } from '@/lib/utils';
-import EnumBadge from '@/components/EnumBadge.vue';
+import guest from '@/routes/guest';
+import type { PropertyOptions } from '@/types/enums';
+import type { Property } from '@/types/models';
 
 type Props = {
     property_data: Property,
@@ -19,15 +18,6 @@ type Props = {
 }
 
 const props = defineProps<Props>();
-
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Show',
-        href: guest.properties.show(props.property_data.id),
-    },
-];
-
 
 const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/image-10.png";
 </script>
@@ -46,22 +36,22 @@ const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/
                 <div class='grid gap-6 lg:grid-cols-3'>
                     <div class="columns-1 space-y-4 sm:col-span-2 sm:columns-1">
                         <h2 class='text-2xl font-semibold sm:text-3xl lg:text-4xl'>
-                            {{ property_data.title }}
+                            {{ props.property_data.title }}
                         </h2>
                         <h3 class='text-lg font-medium text-muted-foreground'>
-                            {{ property_data.address?.full_address }}
+                            {{ props.property_data.address?.full_address }}
                         </h3>
                     </div>
                     
                     <div class="grid">
                         <div>
-                            <span class='text-2xl font-semibold'>${{ property_data.price }}</span>
+                            <span class='text-2xl font-semibold'>${{ props.property_data.price }}</span>
                         </div>
 
                         <div class="flex w-full flex-wrap gap-x-2">
-                            <EnumBadge :enumOption="getPropertyTypeValue(property_data.property_type )" />
-                            <EnumBadge :enumOption="getPropertyStatusValue(property_data.status )" />
-                            <EnumBadge :enumOption="getPropertyListingValue(property_data.listing_type)" />
+                            <EnumBadge :enumOption="getPropertyTypeValue(props.property_data.property_type )" />
+                            <EnumBadge :enumOption="getPropertyStatusValue(props.property_data.status )" />
+                            <EnumBadge :enumOption="getPropertyListingValue(props.property_data.listing_type)" />
                         </div>
                     </div>
                 </div>
@@ -70,7 +60,7 @@ const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/
                 <div class='space-y-4'>
                     <h3 class='text-2xl font-medium'>About</h3>
                     <p class='text-muted-foreground'>
-                    {{ property_data.description }}
+                    {{ props.property_data.description }}
                     </p>
                 </div>
 
@@ -79,23 +69,23 @@ const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/
                     <ul class='space-y-4'>
                         <li class='flex items-center gap-8'>
                             <span class='w-21 text-lg font-medium'>Bedrooms:</span>
-                            <span class='text-muted-foreground'>{{ property_data.bedrooms }}</span>
+                            <span class='text-muted-foreground'>{{ props.property_data.bedrooms }}</span>
                         </li>
                         <li class='flex items-center gap-8'>
                             <span class='w-21 text-lg font-medium'>Bathrooms:</span>
-                            <span class='text-muted-foreground'>{{ property_data.bathrooms }}</span>
+                            <span class='text-muted-foreground'>{{ props.property_data.bathrooms }}</span>
                         </li>
                         <li class='flex items-center gap-8'>
                             <span class='w-21 text-lg font-medium'>Floor Area:</span>
-                            <span class='text-muted-foreground'>{{ property_data.floor_area }}</span>
+                            <span class='text-muted-foreground'>{{ props.property_data.floor_area }}</span>
                         </li>
                         <li class='flex items-center gap-8'>
                             <span class='w-21 text-lg font-medium'>Land Area:</span>
-                            <span class='text-muted-foreground'>{{ property_data.land_area }}</span>
+                            <span class='text-muted-foreground'>{{ props.property_data.land_area }}</span>
                         </li>
                         <li class='flex items-center gap-8'>
                             <span class='w-21 text-lg font-medium'>Year Built:</span>
-                            <span class='text-muted-foreground'>{{ property_data.year_built }}</span>
+                            <span class='text-muted-foreground'>{{ props.property_data.year_built }}</span>
                         </li>
                     </ul>
                 </div>
@@ -105,11 +95,11 @@ const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/
             <div class='space-y-6 px-6 lg:px-8'>
                 <div class='space-y-4'>
                     <h3 class='text-2xl font-medium'>Agent Information</h3>
-                    <Link v-if="property_data.agent != null" :href="guest.agents.show(property_data.agent.id).url">
+                    <Link v-if="props.property_data.agent != null" :href="guest.agents.show(props.property_data.agent.id).url">
                         <Card>
                             <CardContent>
-                                <h3 class='font-medium'> {{ property_data.agent?.agency_name ?? "" }}</h3>
-                                {{ rating_stars(property_data.agent?.average_rating ?? 0) }}
+                                <h3 class='font-medium'> {{ props.property_data.agent?.agency_name ?? "" }}</h3>
+                                {{ rating_stars(props.property_data.agent?.average_rating ?? 0) }}
                                 <br />
                                 <Button variant='secondary'>
                                     View Agent
@@ -125,7 +115,7 @@ const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/
                     <h3 class='text-2xl font-medium'>Amenities</h3>
                     <div class="space-4 flex flex-wrap gap-2">
                         <Badge 
-                            v-for="amenity in property_data.amenities"
+                            v-for="amenity in props.property_data.amenities"
                             :key="amenity.id" 
                             variant="secondary" 
                             class='text-sm'>

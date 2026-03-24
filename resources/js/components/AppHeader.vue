@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import {  Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import {
     SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { home, login, register } from '@/routes';
-import {  Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
-import { Button } from './ui/button';
 import UserMenuContent from '@/components/UserMenuContent.vue';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getInitials } from '@/composable/useInitials';
+import { home, login, register } from '@/routes';
+import { Button } from './ui/button';
 
 const page = usePage();
 const auth = computed(() => page.props.auth);

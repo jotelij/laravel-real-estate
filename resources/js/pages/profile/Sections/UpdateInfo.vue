@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Form, Link, router, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,8 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import profile from '@/routes/profile';
 import verification from '@/routes/verification';
-import { User } from '@/types';
-import { Form, Link, router, useForm } from '@inertiajs/vue3';
+import type { User } from '@/types';
 
 
 interface props {

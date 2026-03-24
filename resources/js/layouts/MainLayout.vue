@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type { BreadcrumbItem, NavItem } from '@/types';
-import { LayoutGrid, User2 } from 'lucide-vue-next'
+import { Link, usePage } from '@inertiajs/vue3';
+import { LayoutGrid } from 'lucide-vue-next'
+import { computed } from 'vue';
+import AppLogo from '@/components/AppLogo.vue';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { dashboard, login, register } from '@/routes';
-import { Link, usePage } from '@inertiajs/vue3';
-import AppLogo from '@/components/AppLogo.vue';
-import { useCurrentUrl } from '@/composable/useCurrentUrl';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { computed } from 'vue';
-import { getInitials } from '@/composable/useInitials';
 import UserMenuContent from '@/components/UserMenuContent.vue';
+import { useCurrentUrl } from '@/composable/useCurrentUrl';
+import { getInitials } from '@/composable/useInitials';
+import { dashboard, login, register } from '@/routes';
 import guest from '@/routes/guest';
+import type { BreadcrumbItem, NavItem } from '@/types';
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];

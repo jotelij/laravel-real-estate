@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
 import HomeIndex from '@/components/common/HomeIndex.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
-import { Property, Review } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import type { Property, Review } from '@/types';
 
 
 interface Props {

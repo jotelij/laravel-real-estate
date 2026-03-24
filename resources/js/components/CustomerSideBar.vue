@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
 import { Calendar, HouseHeart, LayoutDashboard, MessageSquareText, Settings } from 'lucide-vue-next'
-import AppSidebar from './AppSidebar.vue';
 import customer from '@/routes/customer';
 import profile from '@/routes/profile';
+import AppSidebar from './AppSidebar.vue';
 
 
 // Menu items.

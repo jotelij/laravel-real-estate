@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { User } from '@/types';
 import DashboardHeader from '@/components/DashboardHeader.vue';
 import CustomerLayout from '@/layouts/CustomerLayout.vue';
+import type { User } from '@/types';
 import BasicProfileInfo from '../profile/Sections/BasicProfileInfo.vue';
 
 interface props {

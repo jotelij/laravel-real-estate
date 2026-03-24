@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Review } from '@/types/models';
 import { Star } from 'lucide-vue-next';
+import type { Review } from '@/types/models';
 
 interface Props {
     testimonials: Review[];

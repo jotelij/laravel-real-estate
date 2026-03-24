@@ -1,5 +1,5 @@
-import { EnumOption } from "@/types";
-import { EnquiryStatusRaw, ListingTypeRaw, PropertyStatusRaw, PropertyTypeRaw } from "@/types/models";
+import type { EnumOption } from "@/types";
+import type { EnquiryStatusRaw, ListingTypeRaw, PropertyStatusRaw, PropertyTypeRaw } from "@/types/models";
 
 
 export function getPropertyStatusValue(status_value?: PropertyStatusRaw): EnumOption<PropertyStatusRaw>{

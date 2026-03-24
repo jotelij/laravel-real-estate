@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import CustomerLayout from '@/layouts/CustomerLayout.vue';
-import { Viewing } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, Calendar, MapPin, User, Building, Clock, FileText } from 'lucide-vue-next';
-import { timeAgo, formatDate } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import CustomerLayout from '@/layouts/CustomerLayout.vue';
 import { getViewingsStatusValue } from '@/lib/enum_utils';
+import { timeAgo, formatDate } from '@/lib/utils';
 import viewings from '@/routes/customer/viewings';
+import type { Viewing } from '@/types';
 
 interface Props {
   viewing: Viewing;
@@ -17,7 +17,7 @@ const props = defineProps<Props>();
 
 const statusValue = getViewingsStatusValue(props.viewing.status);
 
-const isFutureViewing = new Date(props.viewing.scheduled_at) > new Date();
+// const isFutureViewing = new Date(props.viewing.scheduled_at) > new Date();
 const canCancel = [1, 2].includes(props.viewing.status); // REQUESTED or CONFIRMED
 const canReschedule = [1, 2].includes(props.viewing.status);
 

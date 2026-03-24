@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-vue-next';
-import guest from '@/routes/guest';
 import { ref } from 'vue';
+import { Button } from '@/components/ui/button';
+import guest from '@/routes/guest';
 
 const searchQuery = ref('');
 

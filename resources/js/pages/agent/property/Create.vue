@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import DashboardHeader from '@/components/DashboardHeader.vue'
-import AgentLayout from '@/layouts/AgentLayout.vue'
-import properties from '@/routes/agent/properties'
 import { Link, useForm } from '@inertiajs/vue3'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-vue-next'
-import { Country, Amenity, PropertyTypeRaw, ListingTypeRaw, propertyListingTypeOptions, propertyTypeOptions } from '@/types/models'
 import { ref, computed } from 'vue'
+import DashboardHeader from '@/components/DashboardHeader.vue'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { NativeSelect } from '@/components/ui/native-select'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { NativeSelect } from '@/components/ui/native-select'
 import { Textarea } from '@/components/ui/textarea'
-import { getPropertyListingValue } from '@/lib/enum_utils'
+import AgentLayout from '@/layouts/AgentLayout.vue'
+import properties from '@/routes/agent/properties'
+import { propertyListingTypeOptions, propertyTypeOptions } from '@/types/models'
+import type { Country, Amenity, PropertyTypeRaw, ListingTypeRaw} from '@/types/models';
 
 interface Props {
   countries: Country[]
@@ -74,6 +74,7 @@ const prevStep = () => {
 
 const toggleAmenity = (amenityId: number) => {
   const index = form.amenities.indexOf(amenityId)
+
   if (index > -1) {
     form.amenities.splice(index, 1)
   } else {

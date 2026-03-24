@@ -1,4 +1,4 @@
-import { AgentProfile } from "./models";
+import type { AgentProfile } from "./models";
 
 export type User = {
     id: number;

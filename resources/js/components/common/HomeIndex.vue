@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import HeroSection from '@/components/home/HeroSection.vue';
-import FeaturedProperties from '@/components/home/FeaturedProperties.vue';
-import RecentListings from '@/components/home/RecentListings.vue';
-import InfoSection from '@/components/home/InfoSection.vue';
-import TestimonialsSection from '@/components/home/TestimonialsSection.vue';
 import CTASection from '@/components/home/CTASection.vue';
+import FeaturedProperties from '@/components/home/FeaturedProperties.vue';
+import HeroSection from '@/components/home/HeroSection.vue';
+import InfoSection from '@/components/home/InfoSection.vue';
+import RecentListings from '@/components/home/RecentListings.vue';
+import TestimonialsSection from '@/components/home/TestimonialsSection.vue';
 import type { Property, Review } from '@/types/models';
 
 interface Props {

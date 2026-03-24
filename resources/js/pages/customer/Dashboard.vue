@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import CustomerLayout from '@/layouts/CustomerLayout.vue';
+import { Head, Link } from '@inertiajs/vue3';
+import { ArrowRightIcon, TrendingUp } from 'lucide-vue-next';
+import DashboardHeader from '@/components/DashboardHeader.vue';
+import ListingGrid from '@/components/properties/ListingGrid.vue';
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -9,16 +12,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import DashboardHeader from '@/components/DashboardHeader.vue';
-import { ArrowRightIcon, TrendingUp } from 'lucide-vue-next';
-import { Head, Link } from '@inertiajs/vue3';
-import customer from '@/routes/customer';
-import { Enquiry, Property, Viewing } from '@/types';
-import { Prop } from 'vue';
-import ListingGrid from '@/components/properties/ListingGrid.vue';
-import AppointmentCard from '@/components/viewings/AppointmentCard.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
-import { Button } from '@/components/ui/button';
+import AppointmentCard from '@/components/viewings/AppointmentCard.vue';
+import CustomerLayout from '@/layouts/CustomerLayout.vue';
+import customer from '@/routes/customer';
+import type { Enquiry, Property, Viewing } from '@/types';
 
 interface Props {
     user: {

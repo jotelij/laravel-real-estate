@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import type { BreadcrumbItem, NavItem } from '@/types';
-import { Home, User2 } from 'lucide-vue-next'
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import AppLogo from '@/components/AppLogo.vue';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { dashboard, home, login, register } from '@/routes';
-import { Link, usePage } from '@inertiajs/vue3';
-import AppLogo from '@/components/AppLogo.vue';
-import { useCurrentUrl } from '@/composable/useCurrentUrl';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { computed } from 'vue';
-import { getInitials } from '@/composable/useInitials';
 import UserMenuContent from '@/components/UserMenuContent.vue';
+import { useCurrentUrl } from '@/composable/useCurrentUrl';
+import { getInitials } from '@/composable/useInitials';
+import { home, login, register } from '@/routes';
+import type { BreadcrumbItem, NavItem } from '@/types';
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -34,21 +33,6 @@ const props = withDefaults(defineProps<Props>(), {
 const page = usePage();
 const auth = computed(() => page.props.auth);
 
-const mainNavItems: NavItem[] = [
-     {
-        title: 'Home',
-        href: "/",
-        icon: Home,
-    },
-];
-
-const rightNavItems: NavItem[] = [
-    {
-        title: 'Login',
-        href: login(),
-        icon: User2,
-    },
-];
 </script>
 
 <template>

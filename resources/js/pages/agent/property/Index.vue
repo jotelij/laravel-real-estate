@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import AgentLayout from '@/layouts/AgentLayout.vue'
-import { Property, Paginated } from '@/types'
+import { Link, router } from '@inertiajs/vue3'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -17,7 +16,7 @@ import {
 } from '@tanstack/vue-table'
 import { ArrowUpDown, ChevronDown, Edit, Trash2, Eye, HousePlus } from 'lucide-vue-next'
 import { h, ref } from 'vue'
-import { get_property_image_path, timeAgo, valueUpdater } from '@/lib/utils'
+import DashboardHeader from '@/components/DashboardHeader.vue'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -34,11 +33,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Link, router } from '@inertiajs/vue3'
-import properties from '@/routes/agent/properties'
-import DashboardHeader from '@/components/DashboardHeader.vue'
+import AgentLayout from '@/layouts/AgentLayout.vue'
 import { getPropertyStatusValue, getPropertyTypeValue, getPropertyListingValue } from '@/lib/enum_utils'
+import { get_property_image_path, timeAgo, valueUpdater } from '@/lib/utils'
 import agent from '@/routes/agent'
+import properties from '@/routes/agent/properties'
+import type { Property, Paginated } from '@/types'
 
 interface Props {
   properties_data: Paginated<Property>
@@ -52,7 +52,6 @@ const columns: ColumnDef<Property>[] = [
     accessorFn: (row) => get_property_image_path(row.images),
     header: 'Image',
     cell: ({ row }) => {
-      const imagePath = get_property_image_path(row.original.images)
       return h('img', { src: "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/image-10.png", alt: row.original.title, class: 'h-10 w-10 object-cover rounded' })
     },
     enableSorting: false,
@@ -64,6 +63,7 @@ const columns: ColumnDef<Property>[] = [
     cell: ({ row }) => {
       const title = row.getValue('title') as string
       const truncated = title.length > 40 ? title.slice(0, 40) + '...' : title
+
       return h('div', { class: 'font-medium max-w-xs truncate px-4' }, truncated)
     },
     enableSorting: false,
@@ -86,6 +86,7 @@ const columns: ColumnDef<Property>[] = [
     cell: ({ row }) => {
       const propertyType = row.getValue('property_type') as any
       const typeValue = getPropertyTypeValue(propertyType)
+
       return h(
         'span',
         {
@@ -102,6 +103,7 @@ const columns: ColumnDef<Property>[] = [
     cell: ({ row }) => {
       const listingType = row.getValue('listing_type') as any
       const typeValue = getPropertyListingValue(listingType)
+
       return h(
         'span',
         {
@@ -129,6 +131,7 @@ const columns: ColumnDef<Property>[] = [
     cell: ({ row }) => {
       const status = row.getValue('status') as any
       const statusValue = getPropertyStatusValue(status)
+
       return h(
         'div',
         {
@@ -154,6 +157,7 @@ const columns: ColumnDef<Property>[] = [
     },
     cell: ({ row }) => {
       const price = row.getValue('price') as number
+
       return h('div', { class: 'font-medium' }, `$${price.toLocaleString()}`)
     },
   },
@@ -162,6 +166,7 @@ const columns: ColumnDef<Property>[] = [
     header: 'Beds',
     cell: ({ row }) => {
       const bedrooms = row.getValue('bedrooms') as number
+
       return h('div', { class: 'text-center' }, bedrooms.toString())
     },
     enableHiding: true,
@@ -171,6 +176,7 @@ const columns: ColumnDef<Property>[] = [
     header: 'Baths',
     cell: ({ row }) => {
       const bathrooms = row.getValue('bathrooms') as number
+
       return h('div', { class: 'text-center' }, bathrooms.toString())
     },
     enableHiding: true,
@@ -196,6 +202,7 @@ const columns: ColumnDef<Property>[] = [
     header: 'Views',
     cell: ({ row }) => {
       const views = row.getValue('views_count') as number
+
       return h('div', { class: 'text-center text-sm' }, views.toString())
     },
     enableHiding: true,
@@ -206,6 +213,7 @@ const columns: ColumnDef<Property>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const property = row.original
+
       return h('div', { class: 'flex gap-2' }, [
         h(
           Link,

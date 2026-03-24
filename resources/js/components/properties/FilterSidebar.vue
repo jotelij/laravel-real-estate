@@ -1,6 +1,9 @@
+<!-- eslint-disable vue/no-mutating-props -->
+<!-- eslint-disable @typescript-eslint/no-unused-expressions -->
+
 <script setup lang="ts">
-import type { PropertyFilters } from '@/types/models'
 import type { PropertyOptions } from '@/types/enums'
+import type { PropertyFilters } from '@/types/models'
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 
@@ -91,7 +94,7 @@ function toggleStatus(value: number) {
             <p class="text-sm font-medium">Max price</p>
             <input
                 type="range" min="0" max="500" step="10"
-                v-model.number="filters.max_price"
+                v-model.number="filters.max_price as number"
                 class="w-full accent-primary"
             />
             <div class="flex justify-between text-xs text-muted-foreground">

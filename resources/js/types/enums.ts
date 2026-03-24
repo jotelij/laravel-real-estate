@@ -1,9 +1,9 @@
-import { ListingTypeRaw, PropertyStatusRaw, PropertyTypeRaw, ViewingsStatus } from "./models"
-
+import type { ListingTypeRaw, PropertyStatusRaw, PropertyTypeRaw} from "./models";
 export interface EnumOption<T> {
     value: number
     label: string
-    badgeClass?: string
+    badgeClass?: string,
+    modelType?: T
 }
 
 export interface PropertyStatusEnumOption extends EnumOption<PropertyStatusRaw> {

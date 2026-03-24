@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import { ArrowRightIcon, TrendingUp } from 'lucide-vue-next';
 import DashboardHeader from '@/components/DashboardHeader.vue';
+import EnquiryTable from '@/components/enquiry/EnquiryTable.vue';
 import { Badge } from "@/components/ui/badge"
-import AgentLayout from '@/layouts/AgentLayout.vue';
 import {
   Card,
   CardAction,
@@ -10,13 +12,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import agent from '@/routes/agent';
-import { ArrowRightIcon, TrendingUp } from 'lucide-vue-next';
-import { Link } from '@inertiajs/vue3';
 import Separator from '@/components/ui/separator/Separator.vue';
-import { Enquiry, Viewing } from '@/types';
 import AppointmentCard from '@/components/viewings/AppointmentCard.vue';
-import EnquiryTable from '@/components/enquiry/EnquiryTable.vue';
+import AgentLayout from '@/layouts/AgentLayout.vue';
+import agent from '@/routes/agent';
+import type { Enquiry, Viewing } from '@/types';
 
 
 interface Props {
@@ -170,7 +170,7 @@ const props = defineProps<Props>();
                     <!-- Viewings List -->
                     <!-- Viewings List -->
                     <div  class="space-y-2 ">
-                        <EnquiryTable :enquiries="props.recent_enquiries" />
+                        <EnquiryTable :enquiries_data="props.recent_enquiries" />
                     </div>
                 </div>
             </div>

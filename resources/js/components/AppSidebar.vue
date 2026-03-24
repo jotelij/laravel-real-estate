@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ExternalLink, GalleryVerticalEnd, Home, LogOut, UserCog, UserCogIcon} from 'lucide-vue-next'
+import { Link, router, usePage } from '@inertiajs/vue3';
+import { ExternalLink, GalleryVerticalEnd, Home, LogOut, UserCog} from 'lucide-vue-next'
 import {
   Sidebar,
   SidebarContent,
@@ -13,10 +14,9 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar';
-import type { NavItem } from '@/types';
 import { useCurrentUrl } from '@/composable/useCurrentUrl';
-import { Link, router, usePage } from '@inertiajs/vue3';
 import { home, logout } from '@/routes';
+import type { NavItem } from '@/types';
 
 type Props = {
   navItems?: NavItem[],

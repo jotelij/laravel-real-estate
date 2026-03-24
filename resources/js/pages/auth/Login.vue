@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import AuthLayout from '@/layouts/AuthLayout.vue';
 import { Form, Head, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import AuthLayout from '@/layouts/AuthLayout.vue';
 import { login, register } from '@/routes';
-import { Checkbox } from '@/components/ui/checkbox';
 import password from '@/routes/password';
 
 defineProps<{

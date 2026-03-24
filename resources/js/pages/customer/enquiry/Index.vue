@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import CustomerLayout from '@/layouts/CustomerLayout.vue';
-import { Enquiry, EnquiryStatusRaw, Paginated } from '@/types';
+import { Head, Link } from '@inertiajs/vue3'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -17,7 +16,7 @@ import {
 } from '@tanstack/vue-table'
 import { ArrowUpDown, ChevronDown, MessageSquare, User } from 'lucide-vue-next'
 import { h, ref } from 'vue'
-import { timeAgo, valueUpdater } from '@/lib/utils'
+import DashboardHeader from '@/components/DashboardHeader.vue';
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -34,13 +33,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import CustomerLayout from '@/layouts/CustomerLayout.vue';
 import { getEnquiryStatusValue } from '@/lib/enum_utils'
-import { Head, Link } from '@inertiajs/vue3'
+import { timeAgo, valueUpdater } from '@/lib/utils'
 import enquiries from '@/routes/customer/enquiries';
-import DashboardHeader from '@/components/DashboardHeader.vue';
+import type { Enquiry, EnquiryStatusRaw, Paginated } from '@/types';
 
 interface Props {
-  enquiries: Paginated<Enquiry>
+  enquiries_data: Paginated<Enquiry>
 }
 
 const props = defineProps<Props>();
@@ -54,6 +54,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.sender_id && msg.read_at === null);
       const title = row.original.property?.title ?? 'N/A'
       const truncated = title.length > 40 ? title.slice(0, 40) + '...' : title
+
       return h('div', { class: `font-medium max-w-xs truncate px-4 ${hasUnread ? 'font-semibold' : ''}` }, truncated)
     },
     enableSorting: false,
@@ -66,6 +67,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.sender_id && msg.read_at === null);
       const subject = row.getValue('subject') as string
       const truncated = subject.length > 40 ? subject.slice(0, 40) + '...' : subject
+
       return h('div', { class: `text-sm ${hasUnread ? 'font-semibold' : ''}` }, truncated)
     },
     enableSorting: false,
@@ -78,6 +80,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.sender_id && msg.read_at === null);
       const agencyName = row.original.agent?.agent_profile?.agency_name ?? ''
       const truncated = agencyName.length > 40 ? agencyName.slice(0, 40) + '...' : agencyName
+
       return h('div', { class: `flex items-center gap-2 text-sm ${hasUnread ? 'font-semibold' : ''}` }, [
         h(User, { class: 'h-4 w-4 text-muted-foreground' }),
         h('span', truncated)
@@ -100,6 +103,7 @@ const columns: ColumnDef<Enquiry>[] = [
     },
     cell: ({ row }) => {
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.sender_id && msg.read_at === null);
+
       return h('div', { class: `text-sm text-muted-foreground ${hasUnread ? 'font-semibold' : ''}` }, timeAgo(row.getValue('created_at')));
     },
   },
@@ -119,6 +123,7 @@ const columns: ColumnDef<Enquiry>[] = [
     cell: ({ row }) => {
       const status = row.getValue('status') as EnquiryStatusRaw
       const statusValue = getEnquiryStatusValue(status)
+
       return h('div', { class: `inline-block py-1 px-3 rounded-full text-xs font-semibold ${statusValue.badgeClass}` }, statusValue.label)
     },
   },
@@ -128,6 +133,7 @@ const columns: ColumnDef<Enquiry>[] = [
     cell: ({ row }) => {
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.sender_id && msg.read_at === null);
       const count = row.original.messages?.length ?? 0;
+
       return h('div', { class: `flex items-center gap-1 text-sm ${hasUnread ? 'font-bold' : ''}` }, [
         h(MessageSquare, { class: 'h-4 w-4' }),
         h('span', count.toString())
@@ -140,8 +146,8 @@ const columns: ColumnDef<Enquiry>[] = [
     header: 'Actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.sender_id && msg.read_at === null);
       const enquiry = row.original;
+
       return h(Link, {
         href: enquiries.show(enquiry.id),   
         class: 'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground h-9 px-3',
@@ -155,7 +161,7 @@ const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 
 const table = useVueTable({
-  data: props.enquiries.data,
+  data: props.enquiries_data.data,
   columns,
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
@@ -165,9 +171,15 @@ const table = useVueTable({
   onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
   onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
   state: {
-    get sorting() { return sorting.value },
-    get columnFilters() { return columnFilters.value },
-    get columnVisibility() { return columnVisibility.value },
+    get sorting() {
+ return sorting.value 
+},
+    get columnFilters() {
+ return columnFilters.value 
+},
+    get columnVisibility() {
+ return columnVisibility.value 
+},
   },
 })
 </script>

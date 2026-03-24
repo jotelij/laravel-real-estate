@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
 import DashboardHeader from '@/components/DashboardHeader.vue';
 import ListingGrid from '@/components/properties/ListingGrid.vue';
 import CustomerLayout from '@/layouts/CustomerLayout.vue';
-import { Paginated, Property, PropertyOptions } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import type { Paginated, Property, PropertyOptions } from '@/types';
 
 
 type Props = {

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Enquiry, Paginated } from '@/types';
 import DashboardHeader from '@/components/DashboardHeader.vue';
-import AgentLayout from '@/layouts/AgentLayout.vue';
 import EnquiryTable from '@/components/enquiry/EnquiryTable.vue';
+import AgentLayout from '@/layouts/AgentLayout.vue';
+import type { Enquiry, Paginated } from '@/types';
 
 interface Props {
-  enquiries: Paginated<Enquiry>
+  enquiries_data: Paginated<Enquiry>
 }
 
 const props = defineProps<Props>();
@@ -19,7 +19,7 @@ const props = defineProps<Props>();
         title="Enquiries Received"
         description="Manage your property enquiries and messages" />  
 
-      <EnquiryTable :enquiries="props.enquiries.data" />
+      <EnquiryTable :enquiries_data="props.enquiries_data.data" />
     </div>
   </AgentLayout>
 </template>

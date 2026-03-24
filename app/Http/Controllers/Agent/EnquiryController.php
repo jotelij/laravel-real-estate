@@ -24,7 +24,7 @@ class EnquiryController extends Controller
             ->withQueryString();
             
         return Inertia::render('agent/enquiry/Index', [
-            'enquiries' => $enquiries,
+            'enquiries_data' => $enquiries,
             'statuses' => EnquiryStatus::values()
         ]);
     }

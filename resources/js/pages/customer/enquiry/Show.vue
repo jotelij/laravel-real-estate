@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import CustomerLayout from '@/layouts/CustomerLayout.vue';
-import { Enquiry, enquiryStatusOptions, Message } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ChevronLeft, Send } from 'lucide-vue-next';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { ChevronLeft, Send } from 'lucide-vue-next';
-import { timeAgo, cn } from '@/lib/utils';
+import CustomerLayout from '@/layouts/CustomerLayout.vue';
 import { getEnquiryStatusValue } from '@/lib/enum_utils';
+import { timeAgo, cn } from '@/lib/utils';
 import enquiries from '@/routes/customer/enquiries';
+import type { Enquiry, Message } from '@/types';
 
 interface Props {
   enquiry: Enquiry;
@@ -91,7 +91,7 @@ const isCurrentUserSender = (message: Message) => {
           <p>No messages yet. Start the conversation below.</p>
         </div>
 
-        <template v-for="(message, idx) in enquiry.messages" :key="message.id">
+        <template v-for="(message) in enquiry.messages" :key="message.id">
           <div :class="cn('flex gap-3 animate-fade-in', isCurrentUserSender(message) ? 'flex-row-reverse' : '')">
             <!-- Avatar placeholder -->
             <div :class="cn('h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold', isCurrentUserSender(message) ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground')">

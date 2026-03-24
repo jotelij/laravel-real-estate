@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import { CalendarDaysIcon, Home, HouseHeartIcon, LayoutGrid, MapPinHouseIcon, MessagesSquareIcon } from 'lucide-vue-next';
+import { home } from '@/routes';
+import customer from '@/routes/customer';
+import guest from '@/routes/guest';
+import type { NavItem } from '@/types';
 import CustomerDashboradLayout from './customer/CustomerDashboradLayout.vue';
 import CustomerWideLayout from './customer/CustomerWideLayout.vue';
-import { CalendarDaysIcon, Home, HouseHeart, HouseHeartIcon, LayoutGrid, MapPinHouseIcon, MessagesSquareIcon } from 'lucide-vue-next';
-import customer from '@/routes/customer';
-import type { BreadcrumbItem, NavItem } from '@/types';
-import type { AppVariant } from '@/types';
-import guest from '@/routes/guest';
-import { home } from '@/routes';
 
 defineProps<{
     title?: string;

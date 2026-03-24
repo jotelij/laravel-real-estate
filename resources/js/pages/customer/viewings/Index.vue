@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import DashboardHeader from '@/components/DashboardHeader.vue';
-import CustomerLayout from '@/layouts/CustomerLayout.vue';
-import { Viewing, Paginated } from '@/types';
+import { Head, Link } from '@inertiajs/vue3'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -18,7 +16,7 @@ import {
 } from '@tanstack/vue-table'
 import { ArrowUpDown, ChevronDown, Calendar, MapPin, User, Eye } from 'lucide-vue-next'
 import { h, ref } from 'vue'
-import { timeAgo, valueUpdater, formatDate } from '@/lib/utils'
+import DashboardHeader from '@/components/DashboardHeader.vue';
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -35,8 +33,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import CustomerLayout from '@/layouts/CustomerLayout.vue';
 import { getViewingsStatusValue } from '@/lib/enum_utils'
-import { Head, Link } from '@inertiajs/vue3'
+import { timeAgo, valueUpdater, formatDate } from '@/lib/utils'
+import type { Viewing, Paginated } from '@/types';
 
 interface Props {
   viewings: Paginated<Viewing>
@@ -53,6 +53,7 @@ const columns: ColumnDef<Viewing>[] = [
     cell: ({ row }) => {
       const title = row.original.property?.title ?? 'N/A'
       const truncated = title.length > 35 ? title.slice(0, 35) + '...' : title
+
       return h('div', { class: 'font-medium max-w-xs truncate px-4' }, truncated)
     },
     enableSorting: false,
@@ -73,6 +74,7 @@ const columns: ColumnDef<Viewing>[] = [
     },
     cell: ({ row }) => {
       const scheduledAt = row.getValue('scheduled_at') as string
+
       return h('div', { class: 'flex items-center gap-2 text-sm' }, [
         h(Calendar, { class: 'h-4 w-4 text-muted-foreground' }),
         h('span', formatDate(scheduledAt))
@@ -88,6 +90,7 @@ const columns: ColumnDef<Viewing>[] = [
       const agencyName = row.original.agent?.agent_profile?.agency_name ?? ''
       const display = agencyName ? `${agentName} (${agencyName})` : agentName
       const truncated = display.length > 40 ? display.slice(0, 40) + '...' : display
+
       return h('div', { class: 'flex items-center gap-2 text-sm' }, [
         h(User, { class: 'h-4 w-4 text-muted-foreground' }),
         h('span', truncated)
@@ -111,6 +114,7 @@ const columns: ColumnDef<Viewing>[] = [
     cell: ({ row }) => {
       const status = row.getValue('status') as number
       const statusValue = getViewingsStatusValue(status)
+
       return h('div', { class: `inline-block py-1 px-3 rounded-full text-xs font-semibold ${statusValue.badgeClass}` }, statusValue.label)
     },
   },
@@ -120,6 +124,7 @@ const columns: ColumnDef<Viewing>[] = [
     cell: ({ row }) => {
       const notes = row.getValue('notes') as string
       const display = notes && notes.length > 0 ? (notes.length > 30 ? notes.slice(0, 30) + '...' : notes) : 'N/A'
+
       return h('div', { class: 'text-sm text-muted-foreground' }, display)
     },
     enableSorting: false,
@@ -136,6 +141,7 @@ const columns: ColumnDef<Viewing>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const viewing = row.original
+
       return h('div', { class: 'flex items-center gap-2' }, [
         h(Link, {
           href: `/customer/viewings/${viewing.id}`,
@@ -163,9 +169,15 @@ const table = useVueTable({
   onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
   onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
   state: {
-    get sorting() { return sorting.value },
-    get columnFilters() { return columnFilters.value },
-    get columnVisibility() { return columnVisibility.value },
+    get sorting() {
+ return sorting.value 
+},
+    get columnFilters() {
+ return columnFilters.value 
+},
+    get columnVisibility() {
+ return columnVisibility.value 
+},
   },
 })
 </script>

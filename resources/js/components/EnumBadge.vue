@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { EnumOption } from '@/types';
+import type { EnumOption } from '@/types';
 import Badge from './ui/badge/Badge.vue';
 
 interface Props<T> {

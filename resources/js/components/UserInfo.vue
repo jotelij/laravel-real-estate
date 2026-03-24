@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import type { User } from '@/types';
 import { useInitials } from '@/composable/useInitials';
+import type { User } from '@/types';
 
 type Props = {
     user: User;

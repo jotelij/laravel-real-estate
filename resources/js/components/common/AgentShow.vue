@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { BreadcrumbItem } from '@/types';
-import guest from '@/routes/guest';
-import { AgentProfile } from '@/types/models';
-import { Badge } from '@/components/ui/badge';
 import { FacebookIcon, GithubIcon, InstagramIcon, TwitterIcon } from 'lucide-vue-next';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { PropertyOptions } from '@/types/enums';
 import ListingGrid from '@/components/properties/ListingGrid.vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import type { PropertyOptions } from '@/types/enums';
+import type { AgentProfile } from '@/types/models';
 
 type Props = {
     agent_data: AgentProfile,
@@ -16,21 +14,13 @@ type Props = {
 
 const props = defineProps<Props>();
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Agents',
-        href: guest.properties.index(),
-    },
-];
-
-
 </script>
 
 <template>
     <div class='mx-auto mt-4 max-w-7xl space-y-6 px-4 sm:space-y-8 sm:px-6 lg:space-y-12 lg:px-8'>
         <div class='space-y-4'>
             <h2 class='text-2xl font-semibold sm:text-3xl lg:text-4xl'>
-                {{ agent_data.agency_name }}
+                {{ props.agent_data.agency_name }}
             </h2>
             <div class="flex w-full flex-wrap gap-4">
                 <span class='text-2xl font-semibold'>License ID: {{ agent_data.license_number }}</span>
@@ -39,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="flex w-full flex-wrap gap-12">
                 <span>
                     <Badge variant='default' class='text-sm font-normal'>
-                        Since: {{ agent_data.est }}
+                        Since: {{ props.agent_data.est }}
                     </Badge>
                 </span>
             </div>

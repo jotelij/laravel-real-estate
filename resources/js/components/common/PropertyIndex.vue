@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import type { BreadcrumbItem, Paginated } from '@/types';
-import { Property, PropertyFilters } from '@/types/models';
-import { PropertyOptions } from '@/types/enums';
+import { Link } from '@inertiajs/vue3';
 import FilterSidebar from '@/components/properties/FilterSidebar.vue';
 import ListingGrid from '@/components/properties/ListingGrid.vue';
 import { usePropertyFilters } from '@/composable/usePropertyFilters';
+import type { Paginated } from '@/types';
+import type { PropertyOptions } from '@/types/enums';
+import type { Property, PropertyFilters } from '@/types/models';
 
 interface Props {
     properties_data: Paginated<Property>;
@@ -22,7 +22,7 @@ const { filters, clearFilters } = usePropertyFilters(props.filters);
     <div class="flex h-[calc(100vh-64px)] overflow-hidden border rounded-xl">
         <FilterSidebar
             :filters="filters"
-            :options="options"
+            :options="props.options"
             @clear="clearFilters"
         />
 
@@ -32,12 +32,12 @@ const { filters, clearFilters } = usePropertyFilters(props.filters);
             </div>
 
             <p class="text-xs text-muted-foreground px-4 py-2 border-b">
-                Showing {{ properties_data.total }} properties
+                Showing {{ props.properties_data.total }} properties
             </p>
 
             <div class="flex-1 overflow-y-auto p-4">
                 <div
-                    v-if="properties_data.data.length"
+                    v-if="props.properties_data.data.length"
                     class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-3"
                 >
                         <ListingGrid
@@ -56,17 +56,19 @@ const { filters, clearFilters } = usePropertyFilters(props.filters);
 
             <div class="flex justify-center gap-1 p-3 border-t">
                 <Link
-                    v-for="link in properties_data.links"
+                    v-for="link in props.properties_data.links"
                     :key="link.label"
                     :href="link.url ?? '#'"
                     preserve-scroll preserve-state
-                    v-html="link.label"
+               
                     class="px-3 py-1 text-sm rounded-md border border-border hover:bg-muted transition-colors"
                     :class="{
                         'bg-primary text-primary-foreground border-primary': link.active,
                         'opacity-40 pointer-events-none': !link.url
                     }"
-                />
+                >
+                    {{ link.label }}
+                </Link>
             </div>
         </div>
     </div>

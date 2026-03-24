@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import type { BreadcrumbItem } from '@/types';
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import guest from '@/routes/guest';
-import { Property } from '@/types/models';
-import { PropertyOptions } from '@/types/enums';
 import PropertyShow from '@/components/common/PropertyShow.vue';
 import CustomerLayout from '@/layouts/CustomerLayout.vue';
+import guest from '@/routes/guest';
+import type { BreadcrumbItem } from '@/types';
+import type { PropertyOptions } from '@/types/enums';
+import type { Property } from '@/types/models';
 
 type Props = {
     property_data: Property,

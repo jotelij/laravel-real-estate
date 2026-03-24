@@ -6,10 +6,10 @@ import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import { login, register } from '@/routes';
-import AuthLayout from '@/layouts/AuthLayout.vue';
 import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
+import { Spinner } from '@/components/ui/spinner';
+import AuthLayout from '@/layouts/AuthLayout.vue';
+import { login, register } from '@/routes';
 
 
 const form = useForm({

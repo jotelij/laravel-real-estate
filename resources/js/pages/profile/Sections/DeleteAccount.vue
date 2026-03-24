@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import { Form, Link, useForm } from '@inertiajs/vue3';
+import { UserMinus2 } from 'lucide-vue-next';
+import { ref } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { Form, Link, useForm } from '@inertiajs/vue3';
 import profile from '@/routes/profile';
-import { UserMinus2 } from 'lucide-vue-next';
-import { ref } from 'vue';
 
     
 const accountForm = useForm({

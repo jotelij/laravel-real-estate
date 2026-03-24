@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { User } from '@/types';
+import type { User } from '@/types';
+import DeleteAccount from './DeleteAccount.vue';
 import UpdateInfo from './UpdateInfo.vue';
 import UpdatePassword from './UpdatePassword.vue';
-import DeleteAccount from './DeleteAccount.vue';
 
 interface props {
     user: User;

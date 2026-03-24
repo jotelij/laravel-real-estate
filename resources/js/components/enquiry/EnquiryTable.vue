@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import { Enquiry, EnquiryStatusRaw, Paginated } from '@/types';
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-} from '@tanstack/vue-table';
+import { Link } from '@inertiajs/vue3';
 import {
   FlexRender,
   getCoreRowModel,
@@ -14,9 +8,14 @@ import {
   getSortedRowModel,
   useVueTable,
 } from '@tanstack/vue-table';
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+} from '@tanstack/vue-table';
 import { ArrowUpDown, ChevronDown, MessageSquare, MessageSquareCheck, MessageSquareDot, User } from 'lucide-vue-next'
 import { h, ref } from 'vue'
-import { get_property_image_path, timeAgo, valueUpdater } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -34,11 +33,12 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getEnquiryStatusValue } from '@/lib/enum_utils';
-import { Link } from '@inertiajs/vue3';
-import enquiries from '@/routes/agent/enquiries';
+import { get_property_image_path, timeAgo, valueUpdater } from '@/lib/utils';
+import enquiries from '@/routes/agent/enquiries' ;
+import type { Enquiry, EnquiryStatusRaw} from '@/types';
 
 interface Props {
-  enquiries: Enquiry[]
+  enquiries_data: Enquiry[]
 }
 
 const props = defineProps<Props>();
@@ -50,6 +50,7 @@ const columns: ColumnDef<Enquiry>[] = [
     header: 'Image',
     cell: ({ row }) => {
       const imagePath = get_property_image_path(row.original.property?.images)
+
       return h('img', { src: imagePath, alt: row.original.property?.title ?? 'N/A', class: 'h-10 w-10 object-cover rounded' })
     },
     enableSorting: false,
@@ -63,6 +64,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.agent_id && msg.read_at === null);
       const title = row.original.property?.title ?? 'N/A'
       const truncated = title.length > 40 ? title.slice(0, 40) + '...' : title
+
       return h('div', { class: `font-medium max-w-xs truncate px-4 ${hasUnread ? 'font-semibold' : ''}` }, truncated)
     },
     enableSorting: false,
@@ -75,6 +77,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.agent_id && msg.read_at === null);
       const subject = row.getValue('subject') as string
       const truncated = subject.length > 40 ? subject.slice(0, 40) + '...' : subject
+
       return h('div', { class: `text-sm ${hasUnread ? 'font-semibold' : ''}` }, truncated)
     },
     enableSorting: false,
@@ -88,6 +91,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const display = customerName
       const truncated = display.length > 40 ? display.slice(0, 40) + '...' : display
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.agent_id && msg.read_at === null);
+
       return h('div', { class: `flex items-center gap-2 text-sm ${hasUnread ? 'font-semibold' : ''}` }, [
         h(User, { class: 'h-4 w-4 text-muted-foreground' }),
         h('span', truncated)
@@ -110,6 +114,7 @@ const columns: ColumnDef<Enquiry>[] = [
     },
     cell: ({ row }) => {
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.agent_id && msg.read_at === null);
+
       return h('div', { class: `text-sm text-muted-foreground ${hasUnread ? 'font-semibold' : ''}` }, timeAgo(row.getValue('created_at')));
     },
   },
@@ -130,6 +135,7 @@ const columns: ColumnDef<Enquiry>[] = [
       const status = row.getValue('status') as EnquiryStatusRaw
       const statusValue = getEnquiryStatusValue(status)
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.agent_id && msg.read_at === null);
+
       return h('div', { class: `inline-block py-1 px-3 rounded-full text-xs font-semibold ${statusValue.badgeClass} ${hasUnread ? 'font-semibold' : ''}` }, statusValue.label)
     },
   },
@@ -139,6 +145,7 @@ const columns: ColumnDef<Enquiry>[] = [
     cell: ({ row }) => {
       const count = row.original.messages?.length ?? 0
       const hasUnread = row.original.messages?.some(msg => msg.sender_id !== row.original.agent_id && msg.read_at === null);
+
       return h('div', { class: `flex items-center gap-1 text-sm ${hasUnread ? 'font-semibold text-blue-500' : ''}` }, [
         h(hasUnread ? MessageSquareDot : MessageSquareCheck, { class: `h-4 w-4 ${hasUnread ? 'text-blue-500' : 'text-muted-foreground'}` }),
         h('span', count.toString())
@@ -152,9 +159,9 @@ const columns: ColumnDef<Enquiry>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const enquiry = row.original
-      const hasUnread = enquiry.messages?.some(msg => msg.sender_id !== enquiry.agent_id && msg.read_at === null);
+      
       return h(Link, {
-        href: enquiries.show(enquiry.id),
+        href: enquiries. show(enquiry.id),
         class: 'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground h-9 px-3',
       }, () => 'View')
     },
@@ -166,7 +173,7 @@ const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 
 const table = useVueTable({
-  data: props.enquiries,
+  data: props.enquiries_data,
   columns,
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
@@ -176,9 +183,15 @@ const table = useVueTable({
   onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
   onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
   state: {
-    get sorting() { return sorting.value },
-    get columnFilters() { return columnFilters.value },
-    get columnVisibility() { return columnVisibility.value },
+    get sorting() {
+ return sorting.value 
+},
+    get columnFilters() {
+ return columnFilters.value 
+},
+    get columnVisibility() {
+ return columnVisibility.value 
+},
   },
 })
 </script>

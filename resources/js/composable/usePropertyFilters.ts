@@ -1,7 +1,7 @@
-import { reactive, watch }   from 'vue'
 import { router }            from '@inertiajs/vue3'
-import type { PropertyFilters, PropertyTypeRaw, ListingTypeRaw, PropertyStatusRaw } from '@/types/models';
+import { reactive, watch }   from 'vue'
 import guest from '@/routes/guest';
+import type { PropertyFilters, PropertyTypeRaw, ListingTypeRaw, PropertyStatusRaw } from '@/types/models';
 
 const DEFAULTS: Required<PropertyFilters> = {
     search:     '',
@@ -116,6 +116,7 @@ export function usePropertyFilters(initial: PropertyFilters = {}) {
 
 function toggle<T>(list: T[], value: T): void {
     const idx = list.indexOf(value)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     idx === -1 ? list.push(value) : list.splice(idx, 1)
 }
 
@@ -124,18 +125,38 @@ function toggle<T>(list: T[], value: T): void {
 function buildPayload(filters: Required<PropertyFilters>): any {
     const payload: Record<string, unknown> = {}
 
-    if (filters.search)                     payload.search     = filters.search
-    if (filters.property_types.length)      payload.property_types = filters.property_types
-    if (filters.listing_types.length)       payload.listing_types  = filters.listing_types
-    if (filters.statuses.length)            payload.statuses       = filters.statuses
-    if (filters.max_price  !== DEFAULTS.max_price)  payload.max_price  = filters.max_price
-    if (filters.sort       !== DEFAULTS.sort)       payload.sort       = filters.sort
+    if (filters.search)                     {
+payload.search     = filters.search
+}
+
+    if (filters.property_types.length)      {
+payload.property_types = filters.property_types
+}
+
+    if (filters.listing_types.length)       {
+payload.listing_types  = filters.listing_types
+}
+
+    if (filters.statuses.length)            {
+payload.statuses       = filters.statuses
+}
+
+    if (filters.max_price  !== DEFAULTS.max_price)  {
+payload.max_price  = filters.max_price
+}
+
+    if (filters.sort       !== DEFAULTS.sort)       {
+payload.sort       = filters.sort
+}
 
     return payload
 }
 
 function normalizeNumericArray(value: unknown): number[] {
-    if (!Array.isArray(value)) return []
+    if (!Array.isArray(value)) {
+return []
+}
+
     return value
         .map((v) => typeof v === 'string' ? Number(v) : v)
         .filter((v): v is number => typeof v === 'number' && Number.isFinite(v))

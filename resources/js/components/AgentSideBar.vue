@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
-import { Calendar, GalleryVerticalEnd, Home, Inbox, LayoutDashboard, LucideMapPinHouse, MessageSquareText, Search, Settings } from 'lucide-vue-next'
-import AppSidebar from './AppSidebar.vue';
+import { Calendar,  LayoutDashboard, LucideMapPinHouse, MessageSquareText, Settings } from 'lucide-vue-next'
 import agent from '@/routes/agent';
 import profile from '@/routes/profile';
+import AppSidebar from './AppSidebar.vue';
 
 
 // Menu items.

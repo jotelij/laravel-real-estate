@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import type { BreadcrumbItem } from '@/types';
+import PropertyShow from '@/components/common/PropertyShow.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import guest from '@/routes/guest';
-import { Property } from '@/types/models';
-import { PropertyOptions } from '@/types/enums';
-import PropertyShow from '@/components/common/PropertyShow.vue';
+import type { BreadcrumbItem } from '@/types';
+import type { PropertyOptions } from '@/types/enums';
+import type { Property } from '@/types/models';
 
 type Props = {
     property_data: Property,
@@ -26,6 +26,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 <template>
     <Head title="Property" />
     <GuestLayout :breadcrumbs="breadcrumbs">
-        <PropertyShow :property_data="property_data" :options="options" />
+        <PropertyShow :property_data="props.property_data" :options="props.options" />
     </GuestLayout>
 </template>

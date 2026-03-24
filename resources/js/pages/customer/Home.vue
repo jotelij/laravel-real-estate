@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import type { Property, Review } from '@/types/models';
 import HomeIndex from '@/components/common/HomeIndex.vue';
 import CustomerLayout from '@/layouts/CustomerLayout.vue';
+import type { Property, Review } from '@/types/models';
 
 interface Props {
     featured_properties: Property[];

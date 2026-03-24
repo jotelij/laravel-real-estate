@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import type { BreadcrumbItem, Paginated } from '@/types';
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import { Property, PropertyFilters } from '@/types/models';
-import { PropertyOptions } from '@/types/enums';
-import { home } from '@/routes';
+import { Head } from '@inertiajs/vue3';
 import PropertyIndex from '@/components/common/PropertyIndex.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
+import type { Paginated } from '@/types';
+import type { PropertyOptions } from '@/types/enums';
+import type { Property, PropertyFilters } from '@/types/models';
 
 interface Props {
     properties_data: Paginated<Property>;
@@ -15,12 +14,7 @@ interface Props {
 
 const props = defineProps<Props>(); 
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Property Listings',
-        href: home.url(),
-    },
-];
+
 </script>
 
 <template> 
@@ -28,8 +22,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <GuestLayout>
         <PropertyIndex
-            :properties_data="properties_data"
-            :filters="filters"
-            :options="options" />
+            :properties_data="props.properties_data"
+            :filters="props.filters"
+            :options="props.options" />
     </GuestLayout>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Property } from '@/types/models';
 import { Link } from '@inertiajs/vue3';
-import guest from '@/routes/guest';
-import { Button } from '@/components/ui/button';
 import { MapPin, Bed, Bath } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import guest from '@/routes/guest';
+import type { Property } from '@/types/models';
 
 interface Props {
     properties: Property[];

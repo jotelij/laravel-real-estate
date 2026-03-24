@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import AppSidebar from '@/components/AppSidebar.vue';
+import { Separator } from '@/components/ui/separator';
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
-import AppSidebar from '@/components/AppSidebar.vue';
-import { Separator } from '@/components/ui/separator';
 
 defineProps<{
     title?: string;

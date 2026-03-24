@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Property } from '@/types/models';
 import { Link } from '@inertiajs/vue3';
-import guest from '@/routes/guest';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Heart, MapPin, Bed, Bath, Square } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import guest from '@/routes/guest';
+import type { Property } from '@/types/models';
 
 interface Props {
     properties: Property[];

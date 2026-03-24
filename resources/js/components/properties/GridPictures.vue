@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-const props = defineProps<{
-    images: string[]
-}>();
+// const props = defineProps<{
+//     images: string[]
+// }>();
 const imgggg = "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/image-10.png";
 
 </script>

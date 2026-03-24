@@ -2,5 +2,5 @@
 </script>
 
 <template>
-
+    Show Property
 </template>

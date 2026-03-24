@@ -1,6 +1,6 @@
-import { getPropertyTypeValue } from "@/lib/enum_utils"
-import { User } from "./auth"
-import { EnumOption } from "./enums"
+import { getEnquiryStatusValue, getPropertyListingValue, getPropertyStatusValue, getPropertyTypeValue } from "@/lib/enum_utils"
+import type { User } from "./auth"
+import type { EnumOption } from "./enums"
 
 export type PropertyTypeRaw = 1 | 2 | 3 | 4 | 5 | 6
 export type ListingTypeRaw   = 1 | 2
@@ -13,9 +13,9 @@ const PropertyStatusRawValues: PropertyStatusRaw[] = [1, 2, 3, 4, 5, 6]
 const EnquiryStatusRawValues: EnquiryStatusRaw[] = [1, 2, 3]
 
 export const propertyTypeOptions: EnumOption<PropertyTypeRaw>[] = PropertyTypeRawValues.map(getPropertyTypeValue);
-export const propertyListingTypeOptions: EnumOption<ListingTypeRaw>[] = ListingTypeRawValues.map(getPropertyTypeValue);
-export const propertyStatusOptions: EnumOption<PropertyStatusRaw>[] = PropertyStatusRawValues.map(getPropertyTypeValue);
-export const enquiryStatusOptions: EnumOption<EnquiryStatusRaw>[] = EnquiryStatusRawValues.map(getPropertyTypeValue);
+export const propertyListingTypeOptions: EnumOption<ListingTypeRaw>[] = ListingTypeRawValues.map(getPropertyListingValue);
+export const propertyStatusOptions: EnumOption<PropertyStatusRaw>[] = PropertyStatusRawValues.map(getPropertyStatusValue);
+export const enquiryStatusOptions: EnumOption<EnquiryStatusRaw>[] = EnquiryStatusRawValues.map(getEnquiryStatusValue);
 
 export interface AgentProfile {
     id: number,

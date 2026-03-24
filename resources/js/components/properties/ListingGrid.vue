@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Property, PropertyImage } from '@/types/models'
-import type { PropertyStatusEnumOption } from '@/types/enums'
 import { Link } from '@inertiajs/vue3';
-import guest from '@/routes/guest';
 import { rating_stars } from '@/lib/utils';
+import guest from '@/routes/guest';
+import type { PropertyStatusEnumOption } from '@/types/enums'
+import type { Property } from '@/types/models'
 import GridPictures from './GridPictures.vue';
 
 const props = defineProps<{

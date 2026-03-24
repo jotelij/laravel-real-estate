@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import AppFooter from '@/components/AppFooter.vue';
+import AppHeader from '@/components/AppHeader.vue';
+import CustomerSidebar from '@/components/CustomerSideBar.vue';
+import { Separator } from '@/components/ui/separator';
 import {
     SidebarInset,
     SidebarProvider,
 } from '@/components/ui/sidebar';
-import { Separator } from '@/components/ui/separator';
-import AppFooter from '@/components/AppFooter.vue';
-import AppHeader from '@/components/AppHeader.vue';
-import CustomerSidebar from '@/components/CustomerSideBar.vue';
 
 defineProps<{
     title?: string;
