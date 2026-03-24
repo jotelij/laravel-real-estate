@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
+                // TODO: Refactor to use a resource or DTO instead of passing the entire user model
                 'user' => $request->user(),
             ],
         ];

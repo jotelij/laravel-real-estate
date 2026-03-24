@@ -1,3 +1,5 @@
+import { AgentProfile } from "./models";
+
 export type User = {
     id: number;
     name: string;
@@ -6,6 +8,7 @@ export type User = {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    agent_profile?: AgentProfile;
     [key: string]: unknown;
 };
 
