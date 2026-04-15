@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { NativeSelect } from '@/components/ui/native-select'
 import { Textarea } from '@/components/ui/textarea'
 import AgentLayout from '@/layouts/AgentLayout.vue'
+import agent from '@/routes/agent'
 import properties from '@/routes/agent/properties'
 import { propertyListingTypeOptions, propertyTypeOptions } from '@/types/models'
 import type { Country, Amenity, PropertyTypeRaw, ListingTypeRaw} from '@/types/models';
@@ -40,6 +41,8 @@ const form = useForm({
   city: '',
   address_line_1: '',
   address_line_2: '',
+  postcode: '',
+  region: '',
   amenities: [] as number[],
 })
 
@@ -48,7 +51,7 @@ const currentStep = ref(0)
 const canProceedToNextStep = computed(() => {
   switch (currentStep.value) {
     case 0: // Basics
-      return form.title.trim() !== '' && form.price > 0
+      return form.title.trim() !== '' && form.description.trim() !== '' && form.price > 0
     case 1: // Details
       return form.bedrooms >= 0 && form.year_built
     case 2: // Location
@@ -84,7 +87,7 @@ const toggleAmenity = (amenityId: number) => {
 
 const submitForm = () => {
   
-  form.post('/agent/properties', {
+  form.post(agent.properties.store.url(), {
     onSuccess: () => {
       form.reset()
       currentStep.value = 0
@@ -151,6 +154,7 @@ const submitForm = () => {
 
       <!-- Form Container -->
       <div class="rounded-lg border bg-card p-8">
+
         <!-- Step 1: Basics -->
         <div v-show="currentStep === 0" class="space-y-6">
           <h3 class="text-lg font-semibold">Property Basics</h3>
@@ -174,7 +178,7 @@ const submitForm = () => {
 
           <!-- Description -->
           <div>
-            <Label for="description" class="mb-2 block">Description</Label>
+            <Label for="description" class="mb-2 block">Description *</Label>
             <Textarea
               id="description"
               v-model="form.description"
@@ -188,7 +192,7 @@ const submitForm = () => {
 
           <!-- Price -->
           <div>
-            <Label for="price" class="mb-2 block">Price ($) *</Label>
+            <Label for="price" class="mb-2 block">Price (£) *</Label>
             <Input
               id="price"
               v-model.number="form.price"
@@ -323,34 +327,6 @@ const submitForm = () => {
             Where is your property located?
           </p>
 
-          <!-- Country -->
-          <div>
-            <Label for="country_id" class="mb-2 block">Country *</Label>
-            <NativeSelect v-model.number="form.country_id" id="country_id">
-              <option :value="null">Select a country...</option>
-              <option v-for="country in props.countries" :key="country.id" :value="country.id">
-                {{ country.name }}
-              </option>
-            </NativeSelect>
-            <p v-if="form.errors.country_id" class="mt-1 text-sm text-destructive">
-              {{ form.errors.country_id }}
-            </p>
-          </div>
-
-          <!-- City -->
-          <div>
-            <Label for="city" class="mb-2 block">City/Town *</Label>
-            <Input
-              id="city"
-              v-model="form.city"
-              type="text"
-              placeholder="e.g., New York"
-            />
-            <p v-if="form.errors.city" class="mt-1 text-sm text-destructive">
-              {{ form.errors.city }}
-            </p>
-          </div>
-
           <!-- Address Line 1 -->
           <div>
             <Label for="address_line_1" class="mb-2 block">Address Line 1 *</Label>
@@ -374,6 +350,67 @@ const submitForm = () => {
               type="text"
               placeholder="e.g., Apt 4B (Optional)"
             />
+            <p v-if="form.errors.address_line_2" class="mt-1 text-sm text-destructive">
+              {{ form.errors.address_line_2 }}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- City -->
+            <div>
+              <Label for="city" class="mb-2 block">City/Town *</Label>
+              <Input
+                id="city"
+                v-model="form.city"
+                type="text"
+                placeholder="e.g., New York"
+              />
+              <p v-if="form.errors.city" class="mt-1 text-sm text-destructive">
+                {{ form.errors.city }}
+              </p>
+            </div>
+            <!-- Postcode -->
+            <div>
+              <Label for="postcode" class="mb-2 block">Postcode *</Label>
+              <Input
+                id="postcode"
+                v-model="form.postcode"
+                type="text"
+                placeholder="e.g., 12345"
+              />
+              <p v-if="form.errors.postcode" class="mt-1 text-sm text-destructive">
+                {{ form.errors.postcode }}
+              </p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Country -->
+              <div>
+                <Label for="country_id" class="mb-2 block">Country *</Label>
+                <NativeSelect v-model.number="form.country_id" id="country_id">
+                  <option :value="null">Select a country...</option>
+                  <option v-for="country in props.countries" :key="country.id" :value="country.id">
+                    {{ country.name }}
+                  </option>
+                </NativeSelect>
+                <p v-if="form.errors.country_id" class="mt-1 text-sm text-destructive">
+                  {{ form.errors.country_id }}
+                </p>
+              </div>
+              <!-- Region -->
+              <div>
+                <Label for="region" class="mb-2 block">Region/State</Label>
+                <Input
+                  id="region"
+                  v-model="form.region"
+                  type="text"
+                  placeholder="e.g., California (Optional)"
+                />
+                <p v-if="form.errors.region" class="mt-1 text-sm text-destructive">
+                  {{ form.errors.region }}
+                </p>
+              </div>
           </div>
         </div>
 

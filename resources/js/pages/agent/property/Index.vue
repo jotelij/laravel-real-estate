@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3';
 import type {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
-} from '@tanstack/vue-table'
+} from '@tanstack/vue-table';
 import {
   FlexRender,
   getCoreRowModel,
@@ -13,18 +13,18 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useVueTable,
-} from '@tanstack/vue-table'
-import { ArrowUpDown, ChevronDown, Edit, Trash2, Eye, HousePlus } from 'lucide-vue-next'
-import { h, ref } from 'vue'
-import DashboardHeader from '@/components/DashboardHeader.vue'
-import { Button } from '@/components/ui/button'
+} from '@tanstack/vue-table';
+import { ArrowUpDown, ChevronDown, Edit, Trash2, Eye, HousePlus } from 'lucide-vue-next';
+import { h, ref } from 'vue';
+import DashboardHeader from '@/components/DashboardHeader.vue';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
 import {
   Table,
   TableBody,
@@ -32,13 +32,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import AgentLayout from '@/layouts/AgentLayout.vue'
-import { getPropertyStatusValue, getPropertyTypeValue, getPropertyListingValue } from '@/lib/enum_utils'
-import { get_property_image_path, timeAgo, valueUpdater } from '@/lib/utils'
-import agent from '@/routes/agent'
-import properties from '@/routes/agent/properties'
-import type { Property, Paginated } from '@/types'
+} from '@/components/ui/table';
+import AgentLayout from '@/layouts/AgentLayout.vue';
+import { getPropertyStatusValue, getPropertyTypeValue, getPropertyListingValue } from '@/lib/enum_utils';
+import { getPrimaryImageURL, timeAgo, valueUpdater } from '@/lib/utils';
+import agent from '@/routes/agent';
+import properties from '@/routes/agent/properties';
+import type { Property, Paginated } from '@/types';
 
 interface Props {
   properties_data: Paginated<Property>
@@ -49,10 +49,10 @@ const props = defineProps<Props>()
 const columns: ColumnDef<Property>[] = [
   {
     accessorKey: 'images',
-    accessorFn: (row) => get_property_image_path(row.images),
+    accessorFn: (row) => getPrimaryImageURL(row),
     header: 'Image',
     cell: ({ row }) => {
-      return h('img', { src: "https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/gallery/image-10.png", alt: row.original.title, class: 'h-10 w-10 object-cover rounded' })
+      return h('img', { src: getPrimaryImageURL(row.original), alt: row.original.title, class: 'h-10 w-10 object-cover rounded' })
     },
     enableSorting: false,
     enableHiding: false,

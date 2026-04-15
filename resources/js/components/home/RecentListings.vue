@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { MapPin, Bed, Bath } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
+import { getPrimaryImageURL } from '@/lib/utils';
 import guest from '@/routes/guest';
 import type { Property } from '@/types/models';
 
@@ -11,9 +12,6 @@ interface Props {
 
 defineProps<Props>();
 
-function getPrimaryImage(property: Property): string {
-    return property.images?.[0]?.image_path || '/placeholder-property.jpg';
-}
 </script>
 
 <template>
@@ -41,7 +39,7 @@ function getPrimaryImage(property: Property): string {
                     <!-- Image -->
                     <div class="w-40 h-32 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
                         <img
-                            :src="getPrimaryImage(property)"
+                            :src="getPrimaryImageURL(property)"
                             :alt="property.title"
                             class="w-full h-full object-cover hover:scale-105 transition-transform"
                         />

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PropertyStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedTinyInteger('property_type');
             $table->unsignedTinyInteger('listing_type');
-            $table->unsignedTinyInteger('status');
+            $table->unsignedTinyInteger('status')->default(PropertyStatus::PENDING->value);
             $table->decimal('price', 15, 2);
             $table->unsignedTinyInteger('bedrooms')->nullable();
             $table->unsignedTinyInteger('bathrooms')->nullable();

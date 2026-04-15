@@ -33,7 +33,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getEnquiryStatusValue } from '@/lib/enum_utils';
-import { get_property_image_path, timeAgo, valueUpdater } from '@/lib/utils';
+import { getPrimaryImageURL, timeAgo, valueUpdater } from '@/lib/utils';
 import enquiries from '@/routes/agent/enquiries' ;
 import type { Enquiry, EnquiryStatusRaw} from '@/types';
 
@@ -46,10 +46,10 @@ const props = defineProps<Props>();
 const columns: ColumnDef<Enquiry>[] = [
   {
     accessorKey: 'image',
-    accessorFn: (row) => get_property_image_path(row.property?.images),
+    accessorFn: (row) => getPrimaryImageURL(row.property ?? ({} as any)),
     header: 'Image',
     cell: ({ row }) => {
-      const imagePath = get_property_image_path(row.original.property?.images)
+      const imagePath = getPrimaryImageURL(row.original.property ?? ({} as any))
 
       return h('img', { src: imagePath, alt: row.original.property?.title ?? 'N/A', class: 'h-10 w-10 object-cover rounded' })
     },

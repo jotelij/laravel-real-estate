@@ -10,15 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Property extends Model
 {
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
-    use HasFactory;
+    use HasFactory, Sluggable;
 
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -27,7 +26,6 @@ class Property extends Model
     protected $fillable = [
         'agent_id',
         'title',
-        'slug',
         'description',
         'property_type',
         'listing_type',
@@ -44,7 +42,6 @@ class Property extends Model
         'virtual_tour_link',
     ];
 
-    
     /**
      * Get the attributes that should be cast.
      *
@@ -57,6 +54,15 @@ class Property extends Model
             'listing_type' => ListingType::class,
             'status' => PropertyStatus::class,
             'price'    => 'decimal:2',
+        ];
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
         ];
     }
 
@@ -79,6 +85,21 @@ class Property extends Model
      */
     public function images(): HasMany {
         return $this->hasMany(PropertyImage::class, 'property_id'); 
+    }
+
+    /**
+     * Get the primary image associated with the property.
+     */
+    public function primaryImage(): HasOne {
+        return $this->hasOne(PropertyImage::class, 'property_id')->where('is_primary', true); 
+    }
+
+    /**
+     * Get the URL of the primary image or a default image if none exists.
+     */
+    public function primaryImageUrl(): string {
+        $primaryImage = $this->primaryImage();
+        return $primaryImage ? $primaryImage->first()->image_url : asset('storage/images/default-property.png');
     }
 
     /**

@@ -23,7 +23,7 @@ class PropertyAddress extends Model
         'city',
         'region',
         'postcode',
-        'country',
+        'country_id',
         'latitude',
         'longitude',  
     ];
@@ -43,7 +43,11 @@ class PropertyAddress extends Model
             $this->city,
             $this->region,
             $this->postcode,
-            $this->country
+            $this->country ? $this->country->name : null,
         ]));
+    }
+
+    public function country() {
+        return $this->belongsTo(Country::class, 'country_id');
     }
 }

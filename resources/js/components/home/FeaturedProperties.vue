@@ -4,6 +4,7 @@ import { Heart, MapPin, Bed, Bath, Square } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { getPrimaryImageURL } from '@/lib/utils';
 import guest from '@/routes/guest';
 import type { Property } from '@/types/models';
 
@@ -25,9 +26,6 @@ function toggleFavorite(propertyId: number) {
     }
 }
 
-function getPrimaryImage(property: Property): string {
-    return property.images?.[0]?.image_path || '/placeholder-property.jpg';
-}
 </script>
 
 <template>
@@ -53,7 +51,7 @@ function getPrimaryImage(property: Property): string {
                     <!-- Property Image -->
                     <div class="relative aspect-video bg-gray-200 overflow-hidden group">
                         <img
-                            :src="getPrimaryImage(property)"
+                            :src="getPrimaryImageURL(property)"
                             :alt="property.title"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
