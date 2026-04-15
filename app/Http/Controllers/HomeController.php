@@ -17,7 +17,7 @@ class HomeController extends Controller {
         // Fetch data for guest homepage
         $data['featured_properties'] = Property::where('is_featured', true)
             ->where('status', PropertyStatus::ACTIVE)
-            ->with(['images', 'address', 'agent'])
+            ->with(['images', 'address', 'agent',])
             ->limit(6)
             ->get();
 

@@ -50,6 +50,15 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make(env('AGENT_PASSWORD', 'password')),
         ]);
 
+        $agent_user->agent_profile()->create([
+            'agency_name' => fake()->company(),
+            'license_number' => fake()->unique()->numerify('####'),
+            'bio' => fake()->paragraph(),
+            'est' => fake()->date(),
+            'is_approved' => false,
+            'average_rating' => 4,
+        ]);
+
         $test_user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

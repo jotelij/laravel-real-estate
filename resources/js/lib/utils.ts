@@ -4,7 +4,8 @@ import { clsx } from 'clsx';
 import type { ClassValue } from 'clsx';
 import { CheckCircle2, Clock4, XCircle } from 'lucide-vue-next';
 import { twMerge } from 'tailwind-merge';
-import type { PropertyImage } from '@/types';
+import type { Property, PropertyImage } from '@/types';
+
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -44,6 +45,15 @@ export function get_property_image_path(images?: PropertyImage[]){
     return images[0].image_path;
 }
 
+export function getPrimaryImageURL(property: Property): string {
+    // TODO: Handle case where property has no images or primary image is not set
+    // return property.primaryImageUrl ?? property.images?.[0]?.image_path ?? 'storage/images/default-property.png';
+
+    //TODO: handle base URL address
+    const baseURL = import.meta.env.VITE_APP_BASE_URL || "http://localhost:8000";
+    
+    return property.primaryImageUrl ? `${baseURL}/${property.primaryImageUrl}` : `${baseURL}/storage/images/default-property.png`;
+}
 
 export function rating_stars(rating: number) {
     return '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating))
@@ -56,8 +66,8 @@ export function timeAgo(dateString: string): string {
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
   if (isNaN(seconds)) {
-return "Invalid date";
-}
+  return "Invalid date";
+  }
 
   const intervals: [number, string][] = [
     [31536000, "year"],
@@ -76,8 +86,8 @@ return "Invalid date";
       const count = Math.floor(absSeconds / interval);
 
       if (count >= 1) {
-return `in ${count} ${label}${count > 1 ? "s" : ""}`;
-}
+        return `in ${count} ${label}${count > 1 ? "s" : ""}`;
+      }
     }
 
     return "just now";
@@ -87,9 +97,9 @@ return `in ${count} ${label}${count > 1 ? "s" : ""}`;
     const count = Math.floor(seconds / interval);
 
     if (count >= 1) {
-return `${count} ${label}${count > 1 ? "s" : ""} ago`;
-}
-  }
+      return `${count} ${label}${count > 1 ? "s" : ""} ago`;
+    }
+  } 
 
   return "just now";
 }
