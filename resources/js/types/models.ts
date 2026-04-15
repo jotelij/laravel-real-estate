@@ -85,6 +85,7 @@ export type Property = {
     is_featured: boolean,
     views_count: number,
     virtual_tour_link?: string,
+    primaryImageUrl?:string,
     images?: PropertyImage[]
     agent?: AgentProfile
     amenities?: Amenity[]
